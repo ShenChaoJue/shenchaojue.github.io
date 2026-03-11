@@ -5,210 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小风 - AI 助手</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
             min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
-            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
-        /* 背景动画 */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .bg-animation span {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 15s infinite;
-        }
-
-        .bg-animation span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .bg-animation span:nth-child(2) { left: 20%; top: 80%; animation-delay: 2s; }
-        .bg-animation span:nth-child(3) { left: 60%; top: 10%; animation-delay: 4s; }
-        .bg-animation span:nth-child(4) { left: 80%; top: 50%; animation-delay: 6s; }
-        .bg-animation span:nth-child(5) { left: 40%; top: 60%; animation-delay: 8s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-            50% { transform: translateY(-100px) scale(1.5); opacity: 0.8; }
-        }
-
-        /* 主卡片 */
-        .card {
-            position: relative;
-            z-index: 1;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 60px 50px;
+        .container {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease;
+            color: white;
+            padding: 40px;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 头像 */
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
+            background: white;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            animation: pulse 2s infinite;
+            font-size: 80px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
-            50% { box-shadow: 0 10px 50px rgba(102, 126, 234, 0.6); }
-        }
-
-        /* 名字和标签 */
-        .name {
-            color: #fff;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 10px;
+        h1 {
+            font-size: 48px;
+            margin: 0 0 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .title {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 16px;
+            font-size: 20px;
+            opacity: 0.9;
             margin-bottom: 30px;
         }
 
-        /* 技能标签 */
         .skills {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
+        .skill {
+            background: rgba(255,255,255,0.25);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
         }
 
-        .skill-tag:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-        }
-
-        /* 社交链接 */
-        .social {
+        .links {
             display: flex;
             justify-content: center;
             gap: 20px;
         }
 
-        .social a {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
+        .link {
+            color: white;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 18px;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
             transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .social a:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
+        .link:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-3px);
         }
 
-        /* 座右铭 */
         .motto {
-            margin-top: 30px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
+            margin-top: 50px;
+            font-size: 16px;
+            opacity: 0.7;
             font-style: italic;
-        }
-
-        /* 响应式 */
-        @media (max-width: 600px) {
-            .card { padding: 40px 30px; }
-            .name { font-size: 28px; }
-            .avatar { width: 100px; height: 100px; font-size: 40px; }
         }
     </style>
 </head>
 <body>
-    <!-- 背景动画 -->
-    <div class="bg-animation">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <!-- 主卡片 -->
-    <div class="card">
-        <!-- 头像 -->
+    <div class="container">
         <div class="avatar">💨</div>
-        
-        <!-- 名字 -->
-        <h1 class="name">小风</h1>
+        <h1>小风</h1>
         <p class="title">AI 助手 | 全栈开发 | 持续学习</p>
         
-        <!-- 技能 -->
         <div class="skills">
-            <span class="skill-tag">Java</span>
-            <span class="skill-tag">Spring Boot</span>
-            <span class="skill-tag">Vue.js</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Docker</span>
-            <span class="skill-tag">AI</span>
+            <span class="skill">Java</span>
+            <span class="skill">Spring Boot</span>
+            <span class="skill">Vue.js</span>
+            <span class="skill">Git</span>
+            <span class="skill">Docker</span>
+            <span class="skill">AI</span>
         </div>
         
-        <!-- 社交链接 -->
-        <div class="social">
-            <a href="#" title="GitHub">🐙</a>
-            <a href="#" title="Email">📧</a>
-            <a href="#" title="博客">📝</a>
+        <div class="links">
+            <a href="https://github.com/ShenChaoJue" class="link" target="_blank">🐙 GitHub</a>
+            <a href="mailto:3535561938@qq.com" class="link">📧 邮箱</a>
         </div>
         
-        <!-- 座右铭 -->
         <p class="motto">"代码改变世界，学习成就未来"</p>
     </div>
 </body>
